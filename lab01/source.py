@@ -85,16 +85,28 @@ def task2( A, fm, R ): #R is the number of bits
     fs1 = 20*fm
     X, Y = sample_function( fs1, 4, function1, A, fm, 0 )
     #subtask 1
-    LEVELS = 2 ** R - 1
-    q = LEVELS / 2.0
-    Y1 = ( np.round( q * Y - 0.5 ) / q + ( q * 2 ) ** -1 )
+    LEVELS = 2 ** R 
+    q = 2.0 / ( LEVELS - 1 )
+    Y1 = ( np.round( Y / q - 0.5 ) * q + q / 2 )
     plt.title( 'Mid-rise Quantization of the sampled signal with sampling frequency: ' + str(fs1) + 'KHz' )
     plt.xlabel( 'time(ms)' )
-    plt.ylabel( 'Voltage(V)' )
-    plt.yticks( np.arange(-1, 1.1, 1 / q)  , (str(bin(i))[2:].zfill(4) for i in xrange(0, LEVELS + 1) ) )
+    plt.ylabel( 'Binary' )
+    plt.yticks( np.arange(-1, 1 + q / 2 , q)  , (str(bin(i))[2:].zfill(4) for i in xrange(0, LEVELS + 1 ) ) )
     plt.plot(X, Y, 'bo' )
     plt.step(X, Y1, 'ro' )
     plt.show()
+    #subtask 2
+    s1 = 0
+    s2 = 0
+    for i in xrange(20):
+        if i < 10:
+            s1 += ( Y[i] - Y1[i] ) ** 2
+        s2 += ( Y[i] - Y1[i] ) ** 2
+    s1 = s1 / 10
+    s2 = s2 / 20
+    s1 = math.sqrt(s1)
+    s2 = math.sqrt(s2)
+    print(s1, s2)
     
 
 
