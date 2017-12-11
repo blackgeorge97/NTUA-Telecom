@@ -115,11 +115,21 @@ def task2( A, fm, R ): #R is the number of bits
     print( SNR1, SNR2 )
       
     #subtask 3
+    bit_dur = 1 # 1ms
     binary_seq = []
     for i in Y1:
         for j in Binary[ int( i / q + 1 / q  )]:
             binary_seq.append(int(j))
-    
+    Y_nrz = np.zeros(len(binary_seq))
+    X_nrz = np.zeros(len(binary_seq))
+    for i in range(len(binary_seq)):
+        Y_nrz[i] = 2 * binary_seq[i] - 1
+        X_nrz[i] = i * bit_dur + 1
+    plt.title( 'Polar NRZ' )
+    plt.xlabel( 'time(ms)' )
+    plt.ylabel( 'Voltage(V)' )
+    plt.step(X_nrz, Y_nrz, 'bo' ) 
+    plt.show()
 
 def task3( A, fm, b ): #b is the modulation factor
     #subtask 1
