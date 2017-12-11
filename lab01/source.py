@@ -91,10 +91,13 @@ def task2( A, fm, R ): #R is the number of bits
     plt.title( 'Mid-rise Quantization of the sampled signal with sampling frequency: ' + str(fs1) + 'KHz' )
     plt.xlabel( 'time(ms)' )
     plt.ylabel( 'Binary' )
-    plt.yticks( np.arange(-1, 1 + q / 2 , q)  , (str(bin(i))[2:].zfill(4) for i in xrange(0, LEVELS + 1 ) ) )
+    Binary = [ str(bin(i))[2:].zfill(4) for i in xrange(0, LEVELS) ]
+    Levels_Height = ( np.arange(-1, 1 + q / 2 , q) )
+    plt.yticks( Levels_Height  , Binary )
     plt.plot(X, Y, 'bo' )
     plt.step(X, Y1, 'ro' )
     plt.show()
+    
     #subtask 2
     s1 = 0
     s2 = 0
@@ -107,8 +110,16 @@ def task2( A, fm, R ): #R is the number of bits
     s1 = math.sqrt(s1)
     s2 = math.sqrt(s2)
     print(s1, s2)
+    SNR1 = 3 * s1 ** 2 / A * 2 ** (-2 * R)
+    SNR2 = 3 * s2 ** 2 / A * 2 ** (-2 * R) 
+    print( SNR1, SNR2 )
+      
+    #subtask 3
+    binary_seq = []
+    for i in Y1:
+        for j in Binary[ int( i / q + 1 / q  )]:
+            binary_seq.append(int(j))
     
-
 
 def task3( A, fm, b ): #b is the modulation factor
     #subtask 1
