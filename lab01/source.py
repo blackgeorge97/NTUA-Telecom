@@ -84,11 +84,14 @@ def AM( A, fm, b, t ):
 def task2( A, fm, R ): #R is the number of bits
     fs1 = 20*fm
     X, Y = sample_function( fs1, 4, function1, A, fm, 0 )
-    Y1 = ( np.round( R * Y - 0.5 ) / R +( R * 2 ) ** -1 )
-    print(Y1)
-    plt.title( 'Mid riser' )
+    #subtask 1
+    LEVELS = 2 ** R - 1
+    q = LEVELS / 2.0
+    Y1 = ( np.round( q * Y - 0.5 ) / q + ( q * 2 ) ** -1 )
+    plt.title( 'Mid-rise Quantization of the sampled signal with sampling frequency: ' + str(fs1) + 'KHz' )
     plt.xlabel( 'time(ms)' )
     plt.ylabel( 'Voltage(V)' )
+    plt.yticks( np.arange(-1, 1.1, 1 / q)  , (str(bin(i))[2:].zfill(4) for i in xrange(0, LEVELS + 1) ) )
     plt.plot(X, Y, 'bo' )
     plt.step(X, Y1, 'ro' )
     plt.show()
