@@ -105,8 +105,8 @@ def task2( A, fm, R ): #R is the number of bits
         if i < 10:
             s1 += ( Y[i] - Y1[i] ) ** 2
         s2 += ( Y[i] - Y1[i] ) ** 2
-    s1 = s1 / 10
-    s2 = s2 / 20
+    s1 = s1 / ( 10 - 1 )
+    s2 = s2 / ( 20 - 1 )
     s1 = math.sqrt(s1)
     s2 = math.sqrt(s2)
     print(s1, s2)
